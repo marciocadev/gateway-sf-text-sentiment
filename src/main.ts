@@ -1,4 +1,4 @@
-import { App, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
+import { App, RemovalPolicy, Stack, StackProps, Tags } from 'aws-cdk-lib';
 import { AwsIntegration, Integration, IntegrationOptions, IRestApi, JsonSchema, JsonSchemaType, JsonSchemaVersion, LogGroupLogDestination, MethodLoggingLevel, MethodOptions, Model, RequestValidator, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Effect, IRole, Policy, PolicyStatement, PrincipalBase, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
@@ -202,7 +202,8 @@ const devEnv = {
 
 const app = new App();
 
-new MyStack(app, 'gateway-sf-text-sentiment-dev', { env: devEnv });
+const stack = new MyStack(app, 'gateway-sf-text-sentiment-dev', { env: devEnv });
+Tags.of(stack).add('AppType', 'GatewaySFTextSentiment');
 // new MyStack(app, 'gateway-sf-text-sentiment-prod', { env: prodEnv });
 
 app.synth();
